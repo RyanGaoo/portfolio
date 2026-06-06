@@ -24,14 +24,14 @@ body {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 2.25rem;
   padding: 2rem;
 }
 
 /* Letter bank: the sorted characters, held in a labelled container */
 #bankwrap {
-  flex: 0 0 40%;
+  flex: 1 1 auto;
   position: relative;
   min-height: 0;
   display: flex;
@@ -117,7 +117,7 @@ body {
 #left {
   flex: 1;
   position: relative;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .section {
@@ -274,7 +274,7 @@ body {
 }
 
 #name {
-  font-size: clamp(2.5rem, 12vw, 7rem);
+  font-size: clamp(2.2rem, 10.5vw, 6rem);
   font-weight: 700;
   letter-spacing: 0.15em;
   word-spacing: -0.15em;
@@ -292,10 +292,11 @@ body {
 }
 
 #nav {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
   justify-content: center;
-  gap: 1.5rem;
+  justify-items: center;
+  gap: 1rem 1.75rem;
 }
 
 .link {

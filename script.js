@@ -266,6 +266,7 @@ const RETURN_MS = 500; // matches the .flyer transition duration
 const STAGGER_SPREAD = 0.28; // total seconds the stagger is spread across, capped
 let active = []; // [{ flyer, src }]
 let busy = false;
+let currentView = null; // re-runnable renderer for the active view
 updateBankCount();
 
 // Per-character delay: small step, but the whole stagger never exceeds
@@ -321,11 +322,14 @@ function linesToBlocks(text) {
 }
 
 function formText(text) {
-  if (text) formView(linesToBlocks(text));
+  if (!text) return;
+  currentView = () => formText(text);
+  formView(linesToBlocks(text));
 }
 
 // ---- Projects: list view + per-project detail view ----
 function showProjects() {
+  currentView = showProjects;
   setPanel("projects", "click a project to read more");
   const blocks = [{ text: "// PROJECTS", className: "heading" }];
   PROJECTS.forEach((p) => {
@@ -339,6 +343,7 @@ function showProjects() {
 }
 
 function showProjectDetail(p) {
+  currentView = () => showProjectDetail(p);
   setPanel(p.code.toLowerCase(), "← back to projects");
   const blocks = [
     {
@@ -359,6 +364,7 @@ function showProjectDetail(p) {
 
 // ---- Contact: each line with a link opens its URL ----
 function showContact() {
+  currentView = showContact;
   setPanel("contact", "");
   const blocks = [{ text: "// CONTACT", className: "heading" }];
   CONTACTS.forEach((c) => {
@@ -497,4 +503,22 @@ document.querySelectorAll(".link").forEach((btn) => {
 window.addEventListener("load", () => {
   setPanel("overview", "");
   formText(SECTIONS.overview);
+});
+
+// Re-align on resize / browser zoom: flyers are viewport-fixed, so when the
+// layout changes we clear them and re-form the current view from fresh rects.
+let resizeTimer;
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    if (!currentView) return;
+    active.forEach((a) => {
+      a.flyer.remove();
+      a.src.style.opacity = "";
+    });
+    active = [];
+    busy = false;
+    rebuildPool();
+    currentView();
+  }, 200);
 });
