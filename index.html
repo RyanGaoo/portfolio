@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ryan Gao</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Left column: selection on top, letter bank below -->
+    <div id="leftcol">
+      <section id="right">
+        <h1 id="name">RYAN GAO</h1>
+        <p id="tagline">Software Engineer &amp; Builder</p>
+        <nav id="nav">
+          <button class="link" data-section="overview">overview</button>
+          <button class="link" data-section="education">education</button>
+          <button class="link" data-section="experience">experience</button>
+          <button class="link" data-section="projects">projects</button>
+          <button class="link" data-section="skills">skills</button>
+          <button class="link" data-section="contact">contact</button>
+        </nav>
+      </section>
+
+      <!-- Letter bank -->
+      <div id="bankwrap">
+        <span class="bank-label">letter bank</span>
+        <div id="bg" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <!-- Assembly area: full height, top to bottom -->
+    <main id="stage">
+      <div id="panel">
+        <header id="panel-head">
+          <span>assembly</span>
+          <span id="panel-title">—</span>
+        </header>
+        <section id="left"></section>
+        <footer id="panel-foot">
+          <span id="panel-hint">select a section</span>
+          <span>Toronto, CA</span>
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

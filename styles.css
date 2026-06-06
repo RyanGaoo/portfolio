@@ -1,0 +1,331 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  background: #f4efe2;
+  color: #1a1a1a;
+  font-family: "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  overflow: hidden;
+}
+
+#app {
+  display: flex;
+  height: 100%;
+}
+
+/* Left column: selection (top) + letter bank (bottom) */
+#leftcol {
+  flex: 2;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2.25rem;
+  padding: 2rem;
+}
+
+/* Letter bank: the sorted characters, held in a labelled container */
+#bankwrap {
+  flex: 0 0 40%;
+  position: relative;
+  min-height: 0;
+  display: flex;
+}
+
+.bank-label {
+  position: absolute;
+  top: -0.55rem;
+  left: 0.9rem;
+  z-index: 1;
+  padding: 0 0.45rem;
+  background: #f4efe2;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(26, 26, 26, 0.55);
+}
+
+#bg {
+  flex: 1;
+  position: relative;
+  z-index: 0;
+  padding: 1rem 1.2rem;
+  border: 1px solid rgba(26, 26, 26, 0.4);
+  font-size: 14px;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  color: #1a1a1a;
+  word-break: break-all;
+  overflow: hidden;
+  user-select: none;
+}
+
+.ch {
+  transition: opacity 0.4s ease;
+}
+
+/* Assembly area: full height, top to bottom */
+#stage {
+  flex: 3;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: stretch;
+  padding: 2rem 2rem 2rem 0;
+}
+
+/* Document-window frame around the assembly */
+#panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border: 1px solid #1a1a1a;
+  background: rgba(244, 239, 226, 0.4);
+}
+
+#panel-head,
+#panel-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 1rem;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(26, 26, 26, 0.55);
+  flex: none;
+}
+
+#panel-head {
+  border-bottom: 1px solid rgba(26, 26, 26, 0.2);
+}
+
+#panel-foot {
+  border-top: 1px solid rgba(26, 26, 26, 0.2);
+}
+
+#panel-title {
+  color: #1a1a1a;
+}
+
+#left {
+  flex: 1;
+  position: relative;
+  overflow: auto;
+}
+
+.section {
+  padding: 2.25rem 2.5rem;
+  font-size: 14px;
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+  text-align: left;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+/* Keep each word intact so lines only break at the spaces between words. */
+.word {
+  white-space: nowrap;
+}
+
+.block {
+  margin-bottom: 0.7rem;
+}
+
+.block.line:empty {
+  height: 0.4rem;
+}
+
+.block.heading {
+  margin-bottom: 1.4rem;
+  color: rgba(26, 26, 26, 0.5);
+  letter-spacing: 0.15em;
+}
+
+.block.proj {
+  position: relative;
+  margin-bottom: 1.2rem;
+  padding: 0.4rem 0.6rem 0.4rem 1rem;
+  line-height: 1.55;
+  border-radius: 2px;
+  transition: background 0.2s ease;
+}
+
+/* Continuous left rail that draws in once the letters start forming. */
+.block.proj::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.2rem;
+  bottom: 0.2rem;
+  width: 1px;
+  background: rgba(26, 26, 26, 0.35);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.45s ease;
+}
+
+.section.in .block.proj::before {
+  transform: scaleY(1);
+}
+
+.block.clickable {
+  cursor: pointer;
+}
+
+.block.proj.clickable:hover {
+  background: rgba(26, 26, 26, 0.05);
+}
+
+.block.proj.clickable:hover::before {
+  background: #1a1a1a;
+}
+
+/* Bullet list inside a project's detail view */
+.block.bullet {
+  margin-bottom: 0.45rem;
+  padding-left: 0.4rem;
+}
+
+/* Project detail header: name/date and link on the same line */
+.block.proj-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.6rem;
+  margin-bottom: 1rem;
+}
+
+/* Clickable links (contact rows + project links) */
+.link-block {
+  width: fit-content;
+  max-width: 100%;
+  margin-bottom: 0.55rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 2px;
+  border-bottom: 1px dashed rgba(26, 26, 26, 0.35);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+/* When the link is an inline segment (in the header) it shouldn't have block
+   margins. */
+.seg.link-block {
+  margin-bottom: 0;
+}
+
+.block.link-block {
+  margin-left: -0.35rem;
+}
+
+.link-block:hover {
+  background: rgba(26, 26, 26, 0.06);
+  border-bottom-color: #1a1a1a;
+}
+
+/* Back-to-projects link */
+.block.back {
+  width: fit-content;
+  margin-top: 1.6rem;
+  padding: 0.1rem 0.35rem;
+  margin-left: -0.35rem;
+  border-radius: 2px;
+  cursor: pointer;
+  color: rgba(26, 26, 26, 0.6);
+  transition: background 0.2s ease;
+}
+
+.block.back:hover {
+  background: rgba(26, 26, 26, 0.06);
+}
+
+.slot {
+  color: transparent;
+}
+
+.flyer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  color: #1a1a1a;
+  font-weight: normal;
+  z-index: 5;
+  pointer-events: none;
+  white-space: pre;
+  will-change: transform;
+  transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+#right {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.75rem;
+  text-align: center;
+}
+
+#name {
+  font-size: clamp(2.5rem, 12vw, 7rem);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  word-spacing: -0.15em;
+  color: #111111;
+  text-shadow: 0 0 30px rgba(244, 239, 226, 0.9);
+}
+
+#tagline {
+  margin-top: -1.5rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: rgba(26, 26, 26, 0.6);
+  padding-left: 0.45em; /* optical balance for the tracking */
+}
+
+#nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.link {
+  background: none;
+  border: none;
+  color: #6b6358;
+  font-family: inherit;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  padding: 0.25rem 0;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background: #111111;
+  transition: width 0.25s ease;
+}
+
+.link:hover {
+  color: #111111;
+}
+
+.link:hover::after {
+  width: 100%;
+}
