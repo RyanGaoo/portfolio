@@ -1,51 +1,416 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ryan Gao</title>
-  <link rel="stylesheet" href="styles.css?v=20260606b" />
+  <meta name="description"
+    content="Ryan Gao, Computer Science (Software Engineering + Co-op) at the University of Toronto.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Caveat:wght@500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-  <div id="app">
-    <!-- Left column: selection on top, letter bank below -->
-    <div id="leftcol">
-      <section id="right">
-        <h1 id="name">RYAN GAO</h1>
-        <p id="tagline">Software Engineer &amp; Builder</p>
-        <nav id="nav">
-          <button class="link" data-section="overview">overview</button>
-          <button class="link" data-section="education">education</button>
-          <button class="link" data-section="experience">experience</button>
-          <button class="link" data-section="projects">projects</button>
-          <button class="link" data-section="skills">skills</button>
-          <button class="link" data-section="contact">contact</button>
-        </nav>
+  <main id="map-view">
+    <svg id="map" viewBox="70 280 1640 1015" preserveAspectRatio="xMidYMid meet"
+      aria-label="Ryan Gao, UofT CS 2T9 + Co-op. Transit map: choose a stop to open a section."></svg>
+  </main>
+
+  <!-- Experience: Bloor-Yonge (Line 2 green) -->
+  <section class="page" id="experience" data-color="#00A650" hidden>
+    <div class="page-inner">
+      <button class="back" type="button">&larr; Back to map</button>
+      <header class="sign">
+        <h2>Experience</h2>
+        <p>Bloor-Yonge</p>
+      </header>
+      <article class="entry">
+        <header class="entry-head">
+          <h3>Software Engineer Intern</h3><span class="date">Fall 2026 &ndash; Present</span>
+        </header>
+        <p class="meta">BorderPass &middot; Toronto, Canada</p>
+        <img class="hero" src="assets/33-bloor.jpg" alt="33 Bloor Street East, Toronto, where the BorderPass office is">
+        <ul class="bullets">
+          <li>Worked end-to-end across the stack on AWS, provisioning and maintaining EC2 instances and Lambda functions
+            that power core backend services in production.</li>
+          <li>Designed and implemented asynchronous job processing pipelines with BullMQ for background workflows,
+            including Stripe payment processing and reconciliation.</li>
+          <li>Built and maintained RESTful APIs in TypeScript, authoring and managing PostgreSQL schema migrations as
+            the data model evolved to support new product features.</li>
+          <li>Set up and maintained CI/CD pipelines for production deployments and built QuickSight dashboards for
+            business reporting, owning features from design through deployment.</li>
+        </ul>
+      </article>
+
+      <article class="entry">
+        <header class="entry-head">
+          <h3>Driverless Controls &amp; Planning Engineer</h3><span class="date">July 2026 &ndash; Present</span>
+        </header>
+        <p class="meta">UTFR (University of Toronto Formula Racing) &middot; Toronto, Canada</p>
+        <ul class="bullets">
+          <li>Key contributor to the team's new vehicle model, developing Model Predictive Contouring Control and Model
+            Predictive Path Integral controllers in C++ and ROS2 for driverless trajectory.</li>
+          <li>Integrated a new open-source vehicle dynamics model to capture tire, suspension, and drivetrain behavior,
+            forming the physical basis for controller design and validation.</li>
+          <li>Developed a new high-fidelity simulation environment in Docker on Linux (Ubuntu) to test vehicle control
+            stability under extreme cornering conditions.</li>
+          <li>Researched minimum-curvature path planning and velocity profiles to move driverless planning from midline
+            exploration splines to high-performance racing lines.</li>
+        </ul>
+      </article>
+
+      <article class="entry">
+        <header class="entry-head">
+          <h3>Software Developer</h3><span class="date">Sept 2025 &ndash; Present</span>
+        </header>
+        <p class="meta">C.R.E.A.T.E., University of Toronto &middot; Toronto, Canada</p>
+        <ul class="bullets">
+          <li>Architected and deployed a RAG-based note-taking application with LangChain, enabling semantic search and
+            automated summarization across user-generated documents.</li>
+          <li>Engineered a scalable backend data layer on Supabase, using pgvector to optimize storage and querying of
+            high-dimensional embeddings.</li>
+          <li>Drove the full development lifecycle in an agile team: sprint planning, CI/CD pipelines, code reviews, and
+            cross-functional collaboration in Jira.</li>
+        </ul>
+      </article>
+
+      <article class="entry">
+        <header class="entry-head">
+          <h3>Tech Stack</h3>
+        </header>
+        <dl class="stack">
+          <dt>Languages</dt>
+          <dd>C++, C, Python, Rust, Java, JavaScript, TypeScript, SQL, Bash</dd>
+          <dt>Frameworks &amp; Libraries</dt>
+          <dd>ROS/ROS2, PyTorch, LangChain, React, Node.js, Express, Flask, BullMQ</dd>
+          <dt>Databases &amp; Cloud</dt>
+          <dd>PostgreSQL, MySQL, MongoDB, RESTful APIs, pgvector, AWS (EC2, Lambda, QuickSight), Stripe</dd>
+          <dt>Developer Tools</dt>
+          <dd>Linux (Ubuntu/WSL), Docker, Kubernetes, Git, GitHub Actions, CI/CD, NVML, CMake</dd>
+        </dl>
+      </article>
+    </div>
+  </section>
+
+  <!-- Education: St. Patrick (Line 1 yellow) -->
+  <section class="page" id="education" data-color="#FFCC29" hidden>
+    <div class="page-inner">
+      <button class="back" type="button">&larr; Back to map</button>
+      <header class="sign">
+        <h2>Education</h2>
+        <p>St. Patrick</p>
+      </header>
+
+      <article class="entry">
+        <header class="entry-head">
+          <h3>University of Toronto Scarborough</h3><span class="date">Sept 2025 &ndash; Jan 2029</span>
+        </header>
+        <p class="meta">Honours B.Sc. in Computer Science (Software Engineering + Co-op) &middot; Toronto, Canada</p>
+        <h4>Coursework</h4>
+        <ul class="bullets columns">
+          <li>Intro to Computer Science I &amp; II (CSCA08 / CSCA48)</li>
+          <li>Software Design (CSCB07)</li>
+          <li>Software Tools &amp; Systems Programming (CSCB09)</li>
+          <li>Intro to Databases &amp; Web Apps (CSCB20)</li>
+          <li>Discrete Mathematics (CSCA67)</li>
+          <li>Linear Algebra I (MATA22)</li>
+          <li>Calculus I &amp; II (MATA31 / MATA37)</li>
+          <li>Intro to Probability (STAB52)</li>
+          <li>Intro to Ethics (PHLA11)</li>
+          <li>Ancient Mythology I (CLAA05)</li>
+        </ul>
+        <p class="note">Transfer credits (IB HL): Economics, English, Chemistry.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Misc: Stouffville GO line to Markham, from Union. Polaroids grouped into albums; click to zoom. -->
+  <section class="page" id="misc" data-color="#8B5A2B" hidden>
+    <div class="page-inner">
+      <button class="back" type="button">&larr; Back to map</button>
+      <header class="sign">
+        <h2>Misc</h2>
+        <p>Markham</p>
+      </header>
+      <section class="entry album">
+        <header class="entry-head">
+          <h3>Hackathons</h3><span class="date">5 photos</span>
+        </header>
+        <div class="gallery">
+          <figure class="polaroid"><img src="assets/photos/la-hacks.jpg" alt="LA Hacks @ UCLA" loading="lazy">
+            <figcaption>LA Hacks @ UCLA</figcaption>
+          </figure>
+          <figure class="polaroid"><img src="assets/photos/deltahacks.jpg" alt="DeltaHacks 12" loading="lazy">
+            <figcaption>DeltaHacks 12</figcaption>
+          </figure>
+          <figure class="polaroid"><img src="assets/photos/hack-hive.jpg" alt="Hack Hive" loading="lazy">
+            <figcaption>Hack Hive</figcaption>
+          </figure>
+          <figure class="polaroid"><img src="assets/photos/hack-or-treat.jpg" alt="Hack or Treat" loading="lazy">
+            <figcaption>Hack or Treat</figcaption>
+          </figure>
+          <figure class="polaroid"><img src="assets/photos/go-on-hacks.jpg" alt="Go On Hacks" loading="lazy">
+            <figcaption>Go On Hacks</figcaption>
+          </figure>
+        </div>
       </section>
 
-      <!-- Letter bank -->
-      <div id="bankwrap">
-        <span class="bank-label">letter bank</span>
-        <div id="bg" aria-hidden="true"></div>
-      </div>
-    </div>
-
-    <!-- Assembly area: full height, top to bottom -->
-    <main id="stage">
-      <div id="panel">
-        <header id="panel-head">
-          <span>assembly</span>
-          <span id="panel-title">—</span>
+      <section class="entry album">
+        <header class="entry-head">
+          <h3>Hobbies</h3><span class="date">3 photos</span>
         </header>
-        <section id="left"></section>
-        <footer id="panel-foot">
-          <span id="panel-hint">select a section</span>
-          <span>Toronto, CA</span>
-        </footer>
-      </div>
-    </main>
-  </div>
+        <div class="gallery">
+          <figure class="polaroid"><img src="assets/photos/gunpla.jpg" alt="Gunpla" loading="lazy">
+            <figcaption>Gunpla</figcaption>
+          </figure>
+          <figure class="polaroid"><img src="assets/photos/dog.jpg" alt="The dog" loading="lazy">
+            <figcaption>The dog</figcaption>
+          </figure>
+          <figure class="polaroid"><img src="assets/photos/swim.jpg" alt="Swimming" loading="lazy">
+            <figcaption>Swimming</figcaption>
+          </figure>
+        </div>
+      </section>
 
-  <script src="script.js?v=20260606b"></script>
+      <section class="entry album">
+        <header class="entry-head">
+          <h3>Concerts</h3><span class="date">6 photos</span>
+        </header>
+        <div class="gallery">
+          <figure class="polaroid"><img src="assets/photos/cas.jpg" alt="CAS" loading="lazy">
+            <figcaption>CAS</figcaption>
+          </figure>
+          <figure class="polaroid"><img src="assets/photos/daniel-caesar.jpg" alt="Daniel Caesar" loading="lazy">
+            <figcaption>Daniel Caesar</figcaption>
+          </figure>
+          <figure class="polaroid"><img src="assets/photos/daniel-caesar-2.jpg" alt="Daniel Caesar" loading="lazy">
+            <figcaption>Daniel Caesar</figcaption>
+          </figure>
+          <figure class="polaroid"><img src="assets/photos/bruno-mars.jpg" alt="Bruno Mars" loading="lazy">
+            <figcaption>Bruno Mars</figcaption>
+          </figure>
+          <figure class="polaroid"><img src="assets/photos/giveon.jpg" alt="Giveon" loading="lazy">
+            <figcaption>Giveon</figcaption>
+          </figure>
+          <figure class="polaroid"><img src="assets/photos/keshi.jpg" alt="keshi" loading="lazy">
+            <figcaption>keshi</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="entry album">
+        <header class="entry-head">
+          <h3>Travel</h3><span class="date">7 photos</span>
+        </header>
+        <div class="gallery">
+          <figure class="polaroid"><img src="assets/photos/japan.jpg" alt="Japan" loading="lazy">
+            <figcaption>Japan</figcaption>
+          </figure>
+          <figure class="polaroid"><img src="assets/photos/deer-japan.jpg" alt="Deer, Japan" loading="lazy">
+            <figcaption>Deer, Japan</figcaption>
+          </figure>
+          <figure class="polaroid"><img src="assets/photos/gundam-japan.jpg" alt="Gundam, Japan" loading="lazy">
+            <figcaption>Gundam, Japan</figcaption>
+          </figure>
+          <figure class="polaroid"><img src="assets/photos/shanghai.jpg" alt="Shanghai" loading="lazy">
+            <figcaption>Shanghai</figcaption>
+          </figure>
+          <figure class="polaroid"><img src="assets/photos/cat-shanghai.jpg" alt="Cat, Shanghai" loading="lazy">
+            <figcaption>Cat, Shanghai</figcaption>
+          </figure>
+          <figure class="polaroid"><img src="assets/photos/montreal.jpg" alt="Montreal" loading="lazy">
+            <figcaption>Montreal</figcaption>
+          </figure>
+          <figure class="polaroid"><img src="assets/photos/los-angeles.jpg" alt="Los Angeles" loading="lazy">
+            <figcaption>Los Angeles</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <article class="entry">
+        <header class="entry-head">
+          <h3>Contact</h3>
+        </header>
+        <dl class="stack">
+          <dt>Email</dt>
+          <dd><a href="mailto:Ryann.Gao@mail.utoronto.ca">Ryann.Gao@mail.utoronto.ca</a></dd>
+          <dt>GitHub</dt>
+          <dd><a href="https://github.com/ryangaoo" target="_blank" rel="noopener">github.com/ryangaoo</a></dd>
+          <dt>LinkedIn</dt>
+          <dd><a href="https://linkedin.com/in/ryanngaoo" target="_blank" rel="noopener">linkedin.com/in/ryanngaoo</a>
+          </dd>
+          <dt>Devpost</dt>
+          <dd><a href="https://devpost.com/RyanGaoo" target="_blank" rel="noopener">devpost.com/RyanGaoo</a></dd>
+        </dl>
+      </article>
+    </div>
+  </section>
+
+  <!-- Projects: McCowan (Line 3 blue). Newest first. -->
+  <section class="page" id="projects" data-color="#1AAEEB" hidden>
+    <div class="page-inner">
+      <button class="back" type="button">&larr; Back to map</button>
+      <header class="sign">
+        <h2>Projects</h2>
+        <p>McCowan</p>
+      </header>
+      <article class="entry">
+        <header class="entry-head">
+          <h3>Game Server Emulator</h3><span class="date">Jan 2026 &ndash; Present</span>
+        </header>
+        <p class="meta">Java &middot; KCP/UDP &middot; Encryption &middot; Protocol Buffers &middot; MySQL</p>
+        <img class="hero" src="pgotos/gameserver.png" alt="">
+        <ul class="bullets">
+          <li>Reverse-engineered the client&ndash;server network protocol of a commercial online game, capturing live
+            traffic and decrypting packets to reconstruct the wire format and authentication handshake.</li>
+          <li>Re-implemented the game server from scratch in Java, including session management, packet routing, and
+            core gameplay logic, so the unmodified official client connects and plays end-to-end.</li>
+          <li>Rerouted roughly 3,000 of 5,000 data packets, restoring about 80% of the game's functionality.</li>
+          <li>Architected the backend as distributed services, separating the HTTP dispatch/auth server from the KCP/UDP
+            game server and coordinating session handoff and token validation between them.</li>
+          <li>Persisted player and world state in MySQL through an async persistence layer, implementing inventory,
+            character progression, gacha, shop, achievements, and other server-side systems.</li>
+        </ul>
+      </article>
+
+      <article class="entry">
+        <header class="entry-head">
+          <h3>LockBlock</h3><span class="date">Jan 2026</span>
+        </header>
+        <p class="meta">Python &middot; Flask &middot; JavaScript &middot; SQLite &middot; OpenCV &middot; Solana
+          &middot; Arduino (C++)</p>
+        <p class="event">Hack Hive @ Ontario Tech University &middot; <strong>Best Use of Solana</strong></p>
+        <img class="hero" src="assets/photos/project-lockblock.jpg" alt="LockBlock prototype on the desk at Hack Hive"
+          loading="lazy">
+        <ul class="bullets">
+          <li>Real-time facial-recognition door lock with blockchain-backed remote approval.</li>
+          <li>Edge CV pipeline using YuNet + SFace models for low-latency recognition.</li>
+          <li>Secure Web3 auth via Solana Ed25519 signature verification.</li>
+          <li>Flask + JS dashboard with user whitelisting and live WebSocket alerts.</li>
+        </ul>
+        <p class="links"><a href="https://devpost.com/software/lockblock-9ct281" target="_blank"
+            rel="noopener">Devpost</a></p>
+      </article>
+
+      <article class="entry">
+        <header class="entry-head">
+          <h3>HatsEye</h3><span class="date">Jan 2026</span>
+        </header>
+        <p class="meta">Python &middot; Computer Vision &middot; YOLOv8 &middot; REST APIs &middot; IoT &middot; Arduino
+          (C++)</p>
+        <p class="event">DeltaHacks 12 @ McMaster University &middot; <strong>Top 6 Finalist</strong></p>
+        <img class="hero" src="assets/photos/project-hatseye.jpg" alt="HatsEye wearable: sensors wired onto a top hat"
+          loading="lazy">
+        <ul class="bullets">
+          <li>AI spatial-awareness wearable that narrates surroundings aloud for the visually impaired.</li>
+          <li>YOLOv8 vision pipeline detecting environmental hazards in real time.</li>
+          <li>Async ElevenLabs + Gemini calls turning scenes into natural voice descriptions.</li>
+          <li>Low-latency tactile feedback loop via ultrasonic sensors and vibration motors.</li>
+        </ul>
+        <p class="links"><a href="https://devpost.com/software/hatseye" target="_blank" rel="noopener">Devpost</a></p>
+      </article>
+
+      <article class="entry">
+        <header class="entry-head">
+          <h3>Stop! Don't Go On!</h3><span class="date">Nov 2025</span>
+        </header>
+        <p class="meta">Python &middot; OpenCV &middot; Flask &middot; React &middot; TypeScript &middot; Vite &middot;
+          Arduino &middot; EmailJS &middot; Pygame</p>
+        <p class="event">Go On Hacks &middot; <strong>Top 6 Finalist</strong></p>
+        <img class="hero" src="assets/photos/project-stop-dont-go-on.jpg"
+          alt="Stop! Don't Go On! rig: a camera and servo-driven spray bottle aimed at the desk" loading="lazy">
+        <ul class="bullets">
+          <li>A focus gadget that sprays you when it catches you slacking off, fusing computer vision, audio detection,
+            and an Arduino spray rig.</li>
+          <li>Python + OpenCV backend tracking the user's face and sampling mic input.</li>
+          <li>Servo-driven Arduino Uno actuates a spray bottle on distraction.</li>
+          <li>React + Vite frontend with a 6-second math challenge; failing it emails a candid snapshot.</li>
+        </ul>
+        <p class="links"><a href="https://devpost.com/software/stop-don-t-go-on" target="_blank"
+            rel="noopener">Devpost</a></p>
+      </article>
+
+      <article class="entry">
+        <header class="entry-head">
+          <h3>Omnitop</h3><span class="date">June 2026</span>
+        </header>
+        <p class="meta">Rust &middot; Docker &middot; NVML &middot; IOKit &middot; Win32 API &middot; GitHub Actions</p>
+        <img class="hero" src="assets/photos/omnitop.png" alt="Omnitop">
+        <ul class="bullets">
+          <li>Developed a cross-platform terminal system monitor in Rust that unifies process, container, GPU, and
+            per-process network metrics in a single TUI, published to crates.io (<code>cargo install omnitop</code>).
+          </li>
+          <li>Implemented low-level FFI integrations to stream live hardware telemetry: Apple GPU stats from IOKit,
+            NVIDIA from NVML, and process signals from libc and the Win32 API.</li>
+          <li>Designed an asynchronous, channel-based event loop that polls Docker, network, and signal sources off the
+            render thread, sustaining sub-second refresh without blocking the UI.</li>
+          <li>Built a dependency-free Docker client over a raw Unix domain socket to list and control containers,
+            removing the Docker SDK and its transitive dependencies.</li>
+        </ul>
+        <p class="links"><a href="https://crates.io/crates/omnitop" target="_blank" rel="noopener">crates.io</a></p>
+      </article>
+
+      <article class="entry">
+        <header class="entry-head">
+          <h3>CodeGuard</h3><span class="date">Apr 2026</span>
+        </header>
+        <p class="meta">Python &middot; TypeScript &middot; MongoDB &middot; Claude Opus 3.6 &middot; Git Hooks &middot;
+          OpenRouter</p>
+        <p class="event">LA Hacks 2026 @ UCLA</p>
+        <ul class="bullets">
+          <li>An automated code reviewer: a RAG pipeline that learns and enforces a repo's own standards from its merged
+            PRs.</li>
+          <li>Commit ingestion engine parsing unified diffs into 384-dim embeddings, stored idempotently in MongoDB
+            Atlas.</li>
+          <li>Dual VS Code extensions: a live AST / call-graph sandbox and a SHA-1-cached dual-agent reviewer.</li>
+          <li>Non-blocking Git post-merge hooks for automated background runs.</li>
+        </ul>
+        <p class="links"><a href="https://devpost.com/software/repo-warrior" target="_blank" rel="noopener">Devpost</a>
+        </p>
+      </article>
+
+      <article class="entry">
+        <header class="entry-head">
+          <h3>Fantasy '16</h3><span class="date">Apr 2026</span>
+        </header>
+        <p class="meta">Python &middot; Flask &middot; SQLite &middot; HTML &middot; CSS &middot; JavaScript</p>
+        <p class="event">CSCB20, Intro to Web Apps &amp; Databases</p>
+        <ul class="bullets">
+          <li>Full-stack fantasy basketball league simulator set in the 2016 NBA season.</li>
+          <li>Snake-draft algorithm, round-robin scheduler, and five-category scoring engine.</li>
+          <li>Flask backend with strict turn-based draft validation and day advancement.</li>
+          <li>Strictly typed SQLite schema with status-aware HTML / CSS / JS views.</li>
+        </ul>
+      </article>
+
+      <article class="entry">
+        <header class="entry-head">
+          <h3>MyRoom</h3><span class="date">Jan 2026</span>
+        </header>
+        <p class="meta">React &middot; Three.js / R3F &middot; TypeScript &middot; Node.js &middot; MongoDB &middot;
+          Shopify Storefront API &middot; Gemini &middot; RAG</p>
+        <p class="event">UofTHacks 13</p>
+        <ul class="bullets">
+          <li>"Cursor for interior design": turns a 2D room photo into a buildable, shoppable 3D voxel scene.</li>
+          <li>CV pipeline segmenting images onto a custom voxel system rendered in React Three Fiber.</li>
+          <li>Shopify Storefront integration linking blocks to real purchasable products.</li>
+          <li>Node.js + MongoDB metrics feeding a RAG-driven recommendation engine.</li>
+        </ul>
+        <p class="links"><a href="https://devpost.com/software/myroom-ju8v6y" target="_blank" rel="noopener">Devpost</a>
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <div class="lightbox" hidden></div>
+  <div class="wipe" aria-hidden="true"></div>
+
+  <script src="main.js"></script>
 </body>
+
 </html>
