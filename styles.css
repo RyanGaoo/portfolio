@@ -83,6 +83,88 @@ html, body {
   100% { transform: translate(5px, 0); }
 }
 
+/* Simulated trains: small arrowheads riding the lines. */
+.train path {
+  fill: var(--ink);
+  stroke: var(--bg);
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.15s;
+}
+.train.hl path { transform: scale(1.8); }
+
+/* Tracker panel, left of Line 1 (mirrors the name card on the right). */
+.tracker text { fill: var(--ink); }
+.tr-muted { font-size: 13px; font-weight: 500; letter-spacing: 0; fill: var(--muted) !important; }
+.tr-line { font-size: 15px; font-weight: 700; }
+.tr-row { font-size: 13.5px; cursor: default; }
+.tr-id { font-weight: 700; font-variant-numeric: tabular-nums; }
+.tr-status { fill: var(--muted) !important; }
+.tr-row.hl { font-weight: 700; }
+.tr-row.hl .tr-status { fill: var(--ink) !important; }
+
+/* ---------- Intro loader ---------- */
+
+.loader {
+  --ttc-red: #b5524f; /* TTC red, softened and darkened */
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  background: var(--bg);
+  transition: opacity 0.45s ease, visibility 0.45s;
+}
+.loader.done { opacity: 0; visibility: hidden; }
+
+.loader-scene { width: min(320px, 80vw); }
+.streetcar {
+  display: block;
+  width: 72%;
+  margin: 0 auto;
+  overflow: visible;
+  animation: sc-bob 0.6s ease-in-out infinite alternate;
+}
+.pantograph { fill: none; stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; }
+.sc-roof, .sc-wheel { fill: var(--ink); }
+.sc-body { fill: var(--ttc-red); }
+.sc-window, .sc-door { fill: var(--bg); }
+.sc-door { opacity: 0.85; }
+.sc-stripe { fill: var(--paper); }
+.sc-skirt { fill: #8f3e3c; }
+
+/* Rail with ties that scroll left, so the car looks like it's moving. */
+.loader-track {
+  height: 10px;
+  margin-top: -1px; /* wheels rest on the rail */
+  border-top: 3px solid var(--ink);
+  background: repeating-linear-gradient(90deg, var(--rule) 0 6px, transparent 6px 22px);
+  animation: ties 0.5s linear infinite;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent);
+}
+
+.loader-text {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ttc-red);
+}
+.loader-text span { animation: dot 1.2s infinite; opacity: 0; }
+.loader-text span:nth-child(2) { animation-delay: 0.2s; }
+.loader-text span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes sc-bob { from { transform: translateY(0); } to { transform: translateY(-1.5px); } }
+@keyframes ties { from { background-position: 0 0; } to { background-position: -22px 0; } }
+@keyframes dot { 0%, 20% { opacity: 0; } 40%, 100% { opacity: 1; } }
+
 /* ---------- Screen wipe ---------- */
 
 .wipe {
@@ -369,4 +451,5 @@ code {
   .stop:hover .bus-body,
   .stop:focus-visible .bus-body { animation: none; }
   .polaroid, .polaroid.zoomed, .lightbox { transition: none; }
+  .streetcar, .loader-track, .loader-text span { animation: none; opacity: 1; }
 }

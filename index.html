@@ -16,6 +16,34 @@
 </head>
 
 <body>
+  <!-- Intro: a streetcar rolls in place while the track scrolls past, then fades to the map. -->
+  <div class="loader" role="status" aria-label="Loading">
+    <div class="loader-scene">
+      <svg class="streetcar" viewBox="0 0 240 68" aria-hidden="true">
+        <path class="pantograph" d="M108 14 L120 2 L134 2 M120 2 L128 14" />
+        <rect class="sc-roof" x="96" y="12" width="44" height="4" />
+        <path class="sc-body" d="M6 18 H226 Q236 18 238 30 V56 H2 V30 Q2 18 6 18 Z" />
+        <rect class="sc-window" x="14" y="24" width="22" height="16" />
+        <rect class="sc-window" x="42" y="24" width="22" height="16" />
+        <rect class="sc-door" x="70" y="24" width="12" height="28" />
+        <rect class="sc-window" x="88" y="24" width="22" height="16" />
+        <rect class="sc-window" x="116" y="24" width="22" height="16" />
+        <rect class="sc-door" x="144" y="24" width="12" height="28" />
+        <rect class="sc-window" x="162" y="24" width="22" height="16" />
+        <rect class="sc-window" x="190" y="24" width="22" height="16" />
+        <path class="sc-window" d="M218 24 H228 Q233 26 233 32 V40 H218 Z" />
+        <rect class="sc-stripe" x="2" y="44" width="236" height="3" />
+        <rect class="sc-skirt" x="2" y="52" width="236" height="6" />
+        <circle class="sc-wheel" cx="34" cy="62" r="6" />
+        <circle class="sc-wheel" cx="54" cy="62" r="6" />
+        <circle class="sc-wheel" cx="186" cy="62" r="6" />
+        <circle class="sc-wheel" cx="206" cy="62" r="6" />
+      </svg>
+      <div class="loader-track"></div>
+    </div>
+    <p class="loader-text">Loading<span>.</span><span>.</span><span>.</span></p>
+  </div>
+
   <main id="map-view">
     <svg id="map" viewBox="70 280 1640 1015" preserveAspectRatio="xMidYMid meet"
       aria-label="Ryan Gao, UofT CS 2T9 + Co-op. Transit map: choose a stop to open a section."></svg>
@@ -108,7 +136,7 @@
 
       <article class="entry">
         <header class="entry-head">
-          <h3>University of Toronto Scarborough</h3><span class="date">Sept 2025 &ndash; Jan 2029</span>
+          <h3>University of Toronto</h3><span class="date">Sept 2025 &ndash; Jan 2029</span>
         </header>
         <p class="meta">Honours B.Sc. in Computer Science (Software Engineering + Co-op) &middot; Toronto, Canada</p>
         <h4>Coursework</h4>
@@ -264,7 +292,8 @@
           <h3>Game Server Emulator</h3><span class="date">Jan 2026 &ndash; Present</span>
         </header>
         <p class="meta">Java &middot; KCP/UDP &middot; Encryption &middot; Protocol Buffers &middot; MySQL</p>
-        <img class="hero" src="pgotos/gameserver.png" alt="">
+        <img class="hero" src="assets/photos/project-game-server.jpg"
+          alt="Gameplay running on the emulated game server">
         <ul class="bullets">
           <li>Reverse-engineered the client&ndash;server network protocol of a commercial online game, capturing live
             traffic and decrypting packets to reconstruct the wire format and authentication handshake.</li>
@@ -411,6 +440,7 @@
   <div class="wipe" aria-hidden="true"></div>
 
   <script src="main.js"></script>
+  <script src="trains.js"></script>
 </body>
 
 </html>

@@ -13,16 +13,17 @@ const LINES = [
   { color: COLORS.brown, cls: 'thin', d: 'M770,1205 L1300,1205 Q1330,1205 1351,1184 L1470,1065' },
   { color: COLORS.brown, cls: 'thin dashed', d: 'M1470,1065 L1550,985' },
   // Line 2 Bloor-Danforth
-  { color: COLORS.green, d: 'M123,900 L168,878 L1376,878 L1420,860 L1490,790' },
+  { key: 'l2', color: COLORS.green, d: 'M123,900 L168,878 L1376,878 L1420,860 L1490,790' },
   // Line 1 Yonge-University
   {
+    key: 'l1',
     color: COLORS.yellow,
     d: 'M445,300 L445,330 L520,388 Q530,396 530,408 L530,430 Q530,445 545,445 L620,445 Q633,445 640,455 ' +
        'L678,512 L678,705 L706,740 L738,778 L738,833 L782,878 L782,1118 Q782,1142 806,1142 ' +
        'L846,1142 Q870,1142 870,1118 L870,430',
   },
   // Line 3 Scarborough
-  { color: COLORS.blue, d: 'M1490,790 L1490,614 Q1490,592 1512,592 L1622,592' },
+  { key: 'l3', color: COLORS.blue, d: 'M1490,790 L1490,614 Q1490,592 1512,592 L1622,592' },
 ];
 
 const STATIONS = [
@@ -113,7 +114,9 @@ const TITLE_LINKS = [
 function drawMap(svg) {
   drawTitle(svg);
   for (const line of LINES) {
-    el('path', { d: line.d, class: `line ${line.cls || ''}`, stroke: line.color }, svg);
+    const attrs = { d: line.d, class: `line ${line.cls || ''}`, stroke: line.color };
+    if (line.key) attrs['data-line'] = line.key;
+    el('path', attrs, svg);
   }
 
   // Spadina's walkway between the Line 1 and Line 2 platforms
@@ -122,6 +125,9 @@ function drawMap(svg) {
 
   for (const [cx, cy] of STATIONS) el('circle', { cx, cy, r: 5, class: 'dot' }, svg);
   for (const [cx, cy] of INTERCHANGES) el('circle', { cx, cy, r: 11, class: 'xfer' }, svg);
+
+  // Train pointers ride above the stations but under the clickable stops (trains.js).
+  el('g', { id: 'trains-layer', 'aria-hidden': 'true' }, svg);
 
   for (const stop of STOPS) {
     const g = el('g', {}, svg);
@@ -369,3 +375,16 @@ document.querySelectorAll('.page .polaroid').forEach((fig) => {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPhoto(fig); }
   });
 });
+
+// ---------- Intro loader ----------
+
+const LOADER_MS = 2500;
+const loaderEl = document.querySelector('.loader');
+if (loaderEl) {
+  mapView.inert = true;
+  setTimeout(() => {
+    loaderEl.classList.add('done');
+    mapView.inert = Boolean(current);
+    setTimeout(() => loaderEl.remove(), 500);
+  }, reduceMotion ? 400 : LOADER_MS);
+}
